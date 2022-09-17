@@ -23,7 +23,7 @@ public class Main {
                         flag = true;
                     }
                 }
-                    //flag = true, значит будем иметь дело с римскими обозначениями
+                    
                     if (flag) {
                         a = romanToNumber(strings[0]);
                         b = romanToNumber(strings[1]);
