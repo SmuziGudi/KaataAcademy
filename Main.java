@@ -1,5 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 
 public class Main {
@@ -8,10 +9,16 @@ public class Main {
     static char operation;
     static int result;
 
-    public static void main (String[] args) throws Exception {
+    public static String[] calc(String input){
+        String[] calcul = input.split(" ", 10);
+        
+
+        return calcul;
+    }
+    public static void main (String[] args) throws Exception, NumberFormatException {
         System.out.println("Input: ");
         String userInput = scanner.nextLine();
-        char[] under_char = new char[10];
+        char[] under_char = new char[5];
         for (int i = 0; i < userInput.length(); i++) {
             under_char[i] = userInput.charAt(i);
             if (under_char[i] == '+') {
@@ -28,38 +35,39 @@ public class Main {
             }
         }
         String under_charString = String.valueOf(under_char);
-        String[] blacks = under_charString.split("[+-/*]");
+        String[] blacks = under_charString.split("[+-/*]", 10);
         String stable00 = blacks[0];
         String stable01 = blacks[1];
         String string03 = stable01.trim();
-            number1 = romanToNumber(stable00);
-            number2 = romanToNumber(string03);
+        String string04 = stable00.trim();
+        number1 = romanToNumber(string04);
+        number2 = romanToNumber(string03);
+        try {
             if (number1 != 0 && number2 != 0){
-                try {
-                    if (number1 < 0 && number2 < 0) {
-                        result = 0;
-                    } else {
-                        result = calculated(number1, number2, operation);
-                        System.out.println("Output: ");
-                        try{
-                            String resultRoman = convertNumToRoman(result);
-                            System.out.println(resultRoman);
-                            return;
-                        } catch (Exception e) {
-                            throw new RuntimeException("Римское число не может быть отрицательным");
-                        }
+                if (number1 < 0 && number2 < 0) {
+                    result = 0;
+                } else {
+                    result = calculated(number1, number2, operation);
+                    System.out.println("Output: ");
+                    try{
+                        String resultRoman = convertNumToRoman(result);
+                        System.out.println(resultRoman);
+                        return;
+                    } catch (Exception e) {
+                        throw new RuntimeException("Римское число не может быть отрицательным");
                     }
-                } catch (RuntimeException e) {
-                    throw new RuntimeException("Калькулятор может работать только с 2 римскими или с 2 арабскими числами");
                 }
             }
-            number1 = Integer.parseInt(stable00);
+            number1 = Integer.parseInt(string04);
             number2 = Integer.parseInt(string03);
-            if (number1 > 10 || number2 > 10){
+        }catch (NumberFormatException e) {
+            throw new RuntimeException("Калькулятор может работать только с 2 римскими или с 2 арабскими числами");
+        }
+        if (number1 > 10 || number2 > 10){
             throw new Exception("Введи 2 числа в диапозоне от 0 до 10");
-            }
-            result = calculated(number1, number2, operation);
-            System.out.println("Output: \n"+result);
+        }
+        result = calculated(number1, number2, operation);
+        System.out.println("Output: \n"+result);
     }
 
     private static String convertNumToRoman (int numArabian) {
@@ -75,32 +83,31 @@ public class Main {
         return s;
     }
 
-
     private static int romanToNumber (String roman) {
-            switch (roman) {
-                case "I":
-                    return 1;
-                case "II":
-                    return 2;
-                case "III":
-                    return 3;
-                case "IV":
-                    return 4;
-                case "V":
-                    return 5;
-                case "VI":
-                    return 6;
-                case "VII":
-                    return 7;
-                case "VIII":
-                    return 8;
-                case "IX":
-                    return 9;
-                case "X":
-                    return 10;
-                default:
-                    return 0;
-            }
+        switch (roman) {
+            case "I":
+                return 1;
+            case "II":
+                return 2;
+            case "III":
+                return 3;
+            case "IV":
+                return 4;
+            case "V":
+                return 5;
+            case "VI":
+                return 6;
+            case "VII":
+                return 7;
+            case "VIII":
+                return 8;
+            case "IX":
+                return 9;
+            case "X":
+                return 10;
+            default:
+                return 0;
+        }
     }
 
     public static int calculated (int num1, int num2, char op) {
