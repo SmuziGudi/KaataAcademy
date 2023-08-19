@@ -1,6 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.TreeMap;
+
 
 
 public class Main {
@@ -10,15 +10,28 @@ public class Main {
     static int result;
 
     public static String[] calc(String input){
-        String[] calcul = input.split(" ", 10);
-        
-
-        return calcul;
+        String[] calcul = input.split(" ");
+        if (calcul.length >= 5){
+            String indexes = scanner.nextLine();
+            if (operation != 0){
+                char[] new_str = new char[10];
+                for (int i = 0; i < input.length(); i++){
+                    new_str[i] = input.charAt(i);
+                    if(new_str[i] == '+'){throw new RuntimeException("В выражении может быть только 1 +");}
+                    if(new_str[i] == '-'){throw new RuntimeException("В выражении может быть только 1 -");}
+                    if(new_str[i] == '*'){throw new RuntimeException("В выражении может быть только 1 *");}
+                    if(new_str[i] == '/'){throw new RuntimeException("В выражении может быть только 1 /");}
+                }
+            }
+            return calc(input);
+        }else {
+            return calcul;
+        }
     }
     public static void main (String[] args) throws Exception, NumberFormatException {
         System.out.println("Input: ");
         String userInput = scanner.nextLine();
-        char[] under_char = new char[5];
+        char[] under_char = new char[10];
         for (int i = 0; i < userInput.length(); i++) {
             under_char[i] = userInput.charAt(i);
             if (under_char[i] == '+') {
@@ -40,6 +53,7 @@ public class Main {
         String stable01 = blacks[1];
         String string03 = stable01.trim();
         String string04 = stable00.trim();
+        calc(userInput);
         number1 = romanToNumber(string04);
         number2 = romanToNumber(string03);
         try {
