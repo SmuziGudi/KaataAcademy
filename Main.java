@@ -31,6 +31,8 @@ public class Main {
     public static void main (String[] args) throws Exception, NumberFormatException {
         System.out.println("Input: ");
         String userInput = scanner.nextLine();
+        String[] operands = userInput.split("[+\\-*/]");
+        if (operands.length != 2) throw new RuntimeException("Должно быть 2 операнда");
         char[] under_char = new char[10];
         for (int i = 0; i < userInput.length(); i++) {
             under_char[i] = userInput.charAt(i);
@@ -48,7 +50,7 @@ public class Main {
             }
         }
         String under_charString = String.valueOf(under_char);
-        String[] blacks = under_charString.split("[+-/*]", 10);
+        String[] blacks = under_charString.split("[+-/*]");
         String stable00 = blacks[0];
         String stable01 = blacks[1];
         String string03 = stable01.trim();
